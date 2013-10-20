@@ -83,13 +83,21 @@ module EbayAPI
   end
 
   def ebay_login_url(session_id, ruparams={})
-    url = "#{EBAY_LOGIN_URL}?#{options.auth_type}&runame=#{options.runame}&#{session_id_field_name}=#{CGI::escape(session_id)}"
+    url = "#{ebay_login_path}?#{options.auth_type}&runame=#{options.runame}&#{session_id_field_name}=#{CGI::escape(session_id)}"
 
     ruparams[:internal_return_to] = internal_return_to if internal_return_to
     ruparams[:sid] = session_id
     url << "&ruparams=#{ruparams.to_query.gsub("=", "%3D").gsub("&", "%26")}" unless ruparams.empty?
 
     url
+  end
+
+  def ebay_login_path
+    if options.sandbox
+      "https://signin.sandbox.ebay.com/ws/eBayISAPI.dll"
+    else
+      EBAY_LOGIN_URL
+    end
   end
 
   protected

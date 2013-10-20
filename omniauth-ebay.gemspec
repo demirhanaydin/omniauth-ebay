@@ -28,4 +28,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'fakeweb'
   s.add_development_dependency 'capybara-mechanize'
+  s.add_development_dependency 'debugger'
 end
